@@ -28,6 +28,8 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:reviews) }
+  it { should respond_to(:feed) }
 
   it { should respond_to(:admin) }
 
@@ -129,5 +131,39 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "review associations" do
+    
+    before { @user.save }
+    let!(:older_review) do 
+      FactoryGirl.create(:review, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_review) do
+      FactoryGirl.create(:review, user: @user, created_at: 1.hour.ago)
+    end
+        
+    it "should have the right reviews in the right order" do
+      @user.reviews.should == [newer_review, older_review]
+    end
+
+    it "should destroy associated reviews" do
+      reviews = @user.reviews.dup
+      @user.destroy
+      reviews.should_not be_empty
+      reviews.each do |micropost|
+        Review.find_by_id(review.id).should be_nil
+      end
+    end
+
+    describe "status" do
+      let(:unfollowed_post) do
+        FactoryGirl.create(:review, user: FactoryGirl.create(:user))
+      end
+
+      its(:feed) { should include(newer_review) }
+      its(:feed) { should include(older_review) }
+      its(:feed) { should_not include(unfollowed_post) }
+    end
   end
 end

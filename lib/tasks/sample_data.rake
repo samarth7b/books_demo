@@ -14,6 +14,14 @@ namespace :db do
                    email: email,
                    password: password,
                    password_confirmation: password)
+
+      users = User.all(limit: 6)
+      10.times do
+        book_title = Faker::Lorem.sentence(1, 1)
+        review_title = Faker::Lorem.sentence(4)
+        content = Faker::Lorem.paragraph(3)
+        users.each { |user| user.reviews.create!(book_title: book_title, review_title: review_title, content: content) }
+      end
     end
   end
-end 
+end

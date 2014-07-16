@@ -1,6 +1,7 @@
 BooksDemo::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :reviews, only: [:create, :destroy]
   #get "users/new"
 
   root to: 'static_pages#home'

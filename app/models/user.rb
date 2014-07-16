@@ -11,6 +11,8 @@
 
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
+  has_and_belongs_to_many :books
+  has_many :reviews, dependent: :destroy
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -22,6 +24,12 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+
+
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Review.where("user_id = ?", id)
+  end
 
   private
 
