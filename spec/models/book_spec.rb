@@ -14,6 +14,9 @@ describe Book do
   it { should respond_to(:author) }
   it { should respond_to(:genre) }
 
+  it { should respond_to(:reverse_reads) }
+  it { should respond_to(:readers) }
+
   it { should be_valid }
 
   describe "when title is not present" do

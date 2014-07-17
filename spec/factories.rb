@@ -14,4 +14,11 @@ FactoryGirl.define do
     content "Lorem ipsum"
     user
   end
+
+  factory :book do
+    title "LOTR"
+    author "JRRT"
+    genre "fantasy"
+    user
+  end
 end
