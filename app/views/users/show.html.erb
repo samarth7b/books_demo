@@ -10,6 +10,15 @@
     <section>
       <%= render 'shared/stats' %>
     </section>
+
+    <section>
+      <ul>
+        <li class="side_links">To Read</li>
+        <li class="side_links">Read</li>
+        <li><%= link_to "My Reviews", current_user, class: "side_links" %></li>
+        <li class="side_links">Friends</li>
+      </ul>
+    </section>
   </aside>
   <div class="span8">
     <%= render 'follow_form' if signed_in? %>
