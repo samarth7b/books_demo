@@ -11,7 +11,11 @@
 
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
-  has_and_belongs_to_many :books
+  #has_and_belongs_to_many :books
+
+  has_many :reads
+  has_many :books, :through => :reads
+
   has_many :reviews, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140716142207) do
+ActiveRecord::Schema.define(:version => 20140717090610) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(:version => 20140716142207) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "genre"
+  end
+
+  create_table "reads", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "relationships", :force => true do |t|
@@ -55,10 +62,5 @@ ActiveRecord::Schema.define(:version => 20140716142207) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
-
-  create_table "users_books", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "book_id"
-  end
 
 end
