@@ -38,6 +38,9 @@ describe User do
   it { should respond_to(:reverse_relationships) }
   it { should respond_to(:followers) }
 
+  it { should respond_to(:reads) }
+  it { should respond_to(:read_books) }
+
   it { should respond_to(:admin) }
 
   it { should be_valid }

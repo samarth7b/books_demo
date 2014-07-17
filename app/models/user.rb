@@ -13,8 +13,8 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   #has_and_belongs_to_many :books
 
-  has_many :reads
-  has_many :books, :through => :reads
+  has_many :reads, dependent: :destroy
+  has_many :read_books, :through => :reads
 
   has_many :reviews, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -52,6 +52,18 @@ class User < ActiveRecord::Base
 
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
+  end
+
+  def has_read?(book)
+    reads.find_by_book_id(book.id)
+  end
+
+  def read!(book)
+    reads.create!(book_id: book.id)
+  end
+
+  def undo_read!(book)
+    reads.find_by_book_id(book.id).destroy
   end
 
   private
