@@ -170,10 +170,21 @@ describe User do
       let(:unfollowed_post) do
         FactoryGirl.create(:review, user: FactoryGirl.create(:user))
       end
+      let(:followed_user) { FactoryGirl.create(:user) }
+
+      before do
+        @user.follow!(followed_user)
+        3.times { followed_user.reviews.create!(content: "Lorem ipsum") }
+      end
 
       its(:feed) { should include(newer_review) }
       its(:feed) { should include(older_review) }
       its(:feed) { should_not include(unfollowed_post) }
+      its(:feed) do
+        followed_user.reviews.each do |review|
+          should include(review)
+        end
+      end
     end
   end
 

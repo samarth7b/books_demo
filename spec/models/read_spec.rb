@@ -24,4 +24,14 @@ describe Read do
     its(:reader) { should == reader }
     its(:read_book) { should == read_book }
   end
+
+  describe "when book id is not present" do
+    before { read.book_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when user id is not present" do
+    before { read.user_id = nil }
+    it { should_not be_valid }
+  end
 end

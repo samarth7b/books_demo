@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   #has_and_belongs_to_many :books
 
   has_many :reads, dependent: :destroy
-  has_many :read_books, :through => :reads
+  has_many :read_books, :through => :reads, class_name: "Book"
 
   has_many :reviews, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -38,8 +38,7 @@ class User < ActiveRecord::Base
 
 
   def feed
-    # This is preliminary. See "Following users" for the full implementation.
-    Review.where("user_id = ?", id)
+    Review.from_users_followed_by(self)
   end
 
   def following?(other_user)

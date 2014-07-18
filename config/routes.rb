@@ -1,9 +1,13 @@
 BooksDemo::Application.routes.draw do
+  get "books/new"
+
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :read_books
     end
   end
+
+  resources :books
   resources :sessions, only: [:new, :create, :destroy]
   resources :reviews, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]

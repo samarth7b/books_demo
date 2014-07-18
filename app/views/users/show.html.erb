@@ -14,8 +14,9 @@
     <section>
       <ul>
         <li class="side_links">To Read</li>
-        <li class="side_links">Read</li>
-        <li><%= link_to "My Reviews", current_user, class: "side_links" %></li>
+        <!--<li class="side_links">Books I've Read</li>-->
+        <li class="side_links">Books I've Read (<%= link_to "Add", "/reads/new" %>)</li>
+        <li class="side_links"><%= link_to "My Reviews", current_user %></li>
         <li class="side_links">Friends</li>
       </ul>
     </section>
