@@ -10,7 +10,10 @@ class Review < ActiveRecord::Base
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"
-    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
-          user_id: user.id)
+    #where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
+    #      user_id: user.id)
+    to_read_book_ids = "SELECT book_id FROM toreads WHERE user_id = :user_id"
+    to_read_book_titles = "SELECT title FROM books WHERE id IN (#{to_read_book_ids})"
+    where("user_id IN (#{followed_user_ids}) OR book_title IN (#{to_read_book_titles})", user_id: user.id)
   end
 end
