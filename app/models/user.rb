@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   #has_and_belongs_to_many :books
 
   has_many :reads, dependent: :destroy
-  has_many :read_books, :through => :reads, class_name: "Book"
+  has_many :read_books, :through => :reads, foreign_key: "user_id", class_name: "Book"
 
   has_many :reviews, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy

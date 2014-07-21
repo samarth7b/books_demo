@@ -12,7 +12,7 @@ BooksDemo::Application.routes.draw do
   resources :reviews, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
-  resources :reads, only: [:new, :create, :destroy]     #check which actions are required
+  resources :reads, only: [:new, :create, :destroy, :index]     #check which actions are required
   #get "users/new"
 
   root to: 'static_pages#home'
