@@ -16,7 +16,11 @@ class User < ActiveRecord::Base
   has_many :reads, dependent: :destroy
   has_many :read_books, :through => :reads, foreign_key: "user_id", class_name: "Book"
 
+  has_many :toreads, dependent: :destroy
+  has_many :to_read_books, through: :toreads, foreign_key: "user_id", class_name: "Book"
+
   has_many :reviews, dependent: :destroy
+
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
 
@@ -24,6 +28,19 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+
+  has_many :friendships
+  has_many :friends, through: :friendships
+  has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
+  has_many :inverse_friends, through: :inverse_friendships, source: :user
+
+
+
+
+
+
+
+
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -59,6 +76,10 @@ class User < ActiveRecord::Base
 
   def read!(book)
     reads.create!(book_id: book.id)
+  end
+
+  def toread!(book)
+    toreads.create!(book_id: book.id)
   end
 
   def undo_read!(book)

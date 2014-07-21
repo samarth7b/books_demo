@@ -1,5 +1,8 @@
 <%= form_for(@review) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <div class = "general_heading">
+    Quick Review
+  </div>
   <div class="field">
     <%= f.text_area :book_title, placeholder: "Enter book being reviewed..." %>
   </div>
@@ -9,5 +12,5 @@
   <div class="field">
     <%= f.text_area :content, placeholder: "Compose review..." %>
   </div>
-  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+  <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
 <% end %>

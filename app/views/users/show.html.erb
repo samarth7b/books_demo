@@ -1,4 +1,28 @@
 <% provide(:title, @user.name) %>
+
+
+
+<h2>Friends</h2>
+<ul>
+  <% for friendship in @user.friendships %>
+    <li>
+      <%=h friendship.friend.name %>
+      (<%= link_to "remove", friendship, :method => :delete %>)
+    </li>
+  <% end %>
+</ul>
+
+<p><%= link_to "Find Friends", users_path %></p>
+
+<h2>Friended by Users</h2>
+<ul>
+  <% for user in @user.inverse_friends %>
+    <li><%=h user.name %></li>
+  <% end %>
+</ul>
+
+
+
 <div class="row">
   <aside class="span4">
     <section>
@@ -13,10 +37,10 @@
 
     <section>
       <ul>
-        <li class="side_links">To Read</li>
+        <li class="side_links"><%= link_to "To Read", "/toreads" %> (<%= link_to "Add", "/toreads/new" %>)</li>
         <!--<li class="side_links">Books I've Read</li>-->
         <li class="side_links"><%= link_to "Books I've Read", "/reads" %> (<%= link_to "Add", "/reads/new" %>)</li>
-        <li class="side_links"><%= link_to "My Reviews", current_user %></li>
+        <li class="side_links"><%= link_to "Write Review", "/reviews/new" %></li>
         <li class="side_links">Friends</li>
       </ul>
     </section>

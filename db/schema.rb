@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140717092543) do
+ActiveRecord::Schema.define(:version => 20140721194323) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(:version => 20140717092543) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "genre"
+  end
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "reads", :force => true do |t|
@@ -51,6 +58,17 @@ ActiveRecord::Schema.define(:version => 20140717092543) do
   end
 
   add_index "reviews", ["user_id", "created_at"], :name => "index_reviews_on_user_id_and_created_at"
+
+  create_table "toreads", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "toreads", ["book_id"], :name => "index_toreads_on_book_id"
+  add_index "toreads", ["user_id", "book_id"], :name => "index_toreads_on_user_id_and_book_id", :unique => true
+  add_index "toreads", ["user_id"], :name => "index_toreads_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

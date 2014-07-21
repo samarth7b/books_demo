@@ -1,0 +1,21 @@
+<% provide(:title, 'New Review') %>
+<h1>Write Review</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@review) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :book_title %>
+      <%= f.text_field :book_title %>
+
+      <%= f.label :review_title %>
+      <%= f.text_field :review_title %>
+
+      <%= f.label :content %>
+      <%= f.text_field :content %>
+
+      <%= f.submit "Submit Review", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

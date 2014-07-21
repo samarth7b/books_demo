@@ -1,4 +1,4 @@
-class ReadsController < ApplicationController
+class ToreadsController < ApplicationController
 
   def new
     @book = Book.new		#instance variable @book
@@ -10,6 +10,6 @@ class ReadsController < ApplicationController
 
   def index
     #@users = User.paginate(page: params[:page])
-    @reads = current_user.read_books.paginate(page: params[:page])
+    @toreads = current_user.to_read_books.paginate(page: params[:page])
   end
 end

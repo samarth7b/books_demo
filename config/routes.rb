@@ -1,4 +1,6 @@
 BooksDemo::Application.routes.draw do
+  get "friendships/new"
+
   get "books/new"
 
   resources :users do
@@ -9,10 +11,13 @@ BooksDemo::Application.routes.draw do
 
   resources :books
   resources :sessions, only: [:new, :create, :destroy]
-  resources :reviews, only: [:create, :destroy]
+  resources :reviews, only: [:create, :destroy, :new]
   resources :relationships, only: [:create, :destroy]
 
+  resources :friendships, only: [:create, :destroy]
+
   resources :reads, only: [:new, :create, :destroy, :index]     #check which actions are required
+  resources :toreads
   #get "users/new"
 
   root to: 'static_pages#home'
